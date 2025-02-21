@@ -19,6 +19,8 @@ resource "google_storage_bucket_object" "archive" {
 }
 # Google Function Based From Infra Bucket Object
 resource "google_cloudfunctions_function" "function" {
+  project     = var.project_id
+  region       = var.region
   name        = "my-functions-name"
   description = "my functions description"
   runtime     = "python310"
