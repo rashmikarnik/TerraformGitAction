@@ -2,7 +2,7 @@
 ## Google Storage Definition 
 #########################################################################
 # Create Infra Bucket
-data "google_storage_bucket" "bucket" {
+resource "google_storage_bucket" "bucket" {
   project     = var.project_id
   name     = var.infra_bucket
   location = var.region
