@@ -53,7 +53,7 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
 
 # **NEW** Include the BigQuery configuration
 module "bigquery" {
-   source = file("./modules/deploy")
+   source = "./modules/deploy"
  }
 
 # # **NEW** Include the order.dev.yaml file
