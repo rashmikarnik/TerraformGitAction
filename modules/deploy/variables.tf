@@ -77,6 +77,13 @@ variable "schema_file" {
   default     = "schemas/orders_schema.json"
 }
 
+variable "bigquery_table_name" {
+  type        = string
+  description = "Name ot the BQ table"
+  default     = "${source_project}.${source_dataset}.${source_table}"
+  
+}
+
 variable "data_quality_spec_file" {
   type        = string
   description = "Path to a YAML file containing DataQualityScan related setting. Input content can use either camelCase or snake_case. Variables description are provided in https://cloud.google.com/dataplex/docs/reference/rest/v1/DataQualitySpec."

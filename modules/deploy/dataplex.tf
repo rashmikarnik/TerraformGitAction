@@ -11,13 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
- data "google_bigquery_table" "existing_table" {
-  project = var.project_id
-  dataset_id = var.dataset_id
-  table_id   = var.table_id
-}
-
 resource "google_dataplex_datascan" "dq_scan" {
   location     = var.region
   data_scan_id = "rashmi-scan"
@@ -27,7 +20,7 @@ resource "google_dataplex_datascan" "dq_scan" {
 
 
   data {
-    resource = "//bigquery.googleapis.com/${data.google_bigquery_table.existing_table.id}"
+    resource = "//bigquery.googleapis.com/${var.bigquery_table_name}"
   }
 
   execution_spec {
