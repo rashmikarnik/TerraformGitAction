@@ -47,9 +47,9 @@ resource "google_bigquery_job" "job" {
     query = "SELECT * FROM `${var.source_project}.${var.source_dataset}.${var.source_table}"
 
     destination_table {
-      project_id = google_bigquery_table.table.project
-      dataset_id = google_bigquery_table.table.dataset_id
-      table_id   = google_bigquery_table.table.table_id
+      project_id = var.source_project
+      dataset_id = var.source_dataset
+      table_id   = var.source_table
     }
   }
 }
