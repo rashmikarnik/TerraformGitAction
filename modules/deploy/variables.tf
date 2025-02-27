@@ -80,8 +80,11 @@ variable "schema_file" {
 variable "bigquery_table_name" {
   type        = string
   description = "Name ot the BQ table"
-  default     = "${source_project}.${source_dataset}.${source_table}"
   
+}
+
+locals {
+  bigquery_table_name = "${var.source_project}.${var.source_dataset}.${var.source_table}"
 }
 
 variable "data_quality_spec_file" {
