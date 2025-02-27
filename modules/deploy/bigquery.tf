@@ -43,6 +43,8 @@ resource "google_bigquery_job" "job" {
     "env" = local.env
   }
 
+ 
+
   query {
     query = "SELECT * FROM `${var.source_project}.${var.source_dataset}.${var.source_table}"
 

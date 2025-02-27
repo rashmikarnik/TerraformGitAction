@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+ data "google_bigquery_table" "existing_table" {
+  project = var.project_id
+  dataset_id = var.dataset_id
+  table_id   = var.table_id
+}
+
 resource "google_dataplex_datascan" "dq_scan" {
   location     = var.region
   data_scan_id = "rashmi-scan"
@@ -19,8 +25,9 @@ resource "google_dataplex_datascan" "dq_scan" {
     environment = local.env
   }
 
+
   data {
-    resource = "//bigquery.googleapis.com/${google_bigquery_table.table.id}"
+    resource = "//bigquery.googleapis.com/${data.google_bigquery_table.existing_table.id}"
   }
 
   execution_spec {
