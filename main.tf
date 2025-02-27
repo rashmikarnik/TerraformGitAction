@@ -51,13 +51,3 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   member = "allUsers"
 }
 
-# **NEW** Include the BigQuery configuration
-# module "bigquery" {
-#    source = file("./modules/deploy/bigquery.tf")
-#  }
-
-# # **NEW** Include the order.dev.yaml file
-#  resource "local_file" "order_dev_yaml" {
-#   filename = "./order.dev.yaml"
-#    content   = file("${path.module}/order.dev.yaml")
-#  }

@@ -56,19 +56,19 @@ variable "environment" {
 variable "source_project" {
   type        = string
   description = "Source project for the data"
-  default     = "bigquery-public-data"
+  default     = "inlaid-goods-451523-i3"
 }
 
 variable "source_dataset" {
   type        = string
   description = "Source dataset for the data"
-  default     = "thelook_ecommerce"
+  default     = "githubAction_example"
 }
 
 variable "source_table" {
   type        = string
   description = "Source table for the data"
-  default     = "orders"
+  default     = "EPM_PINS_UDOT"
 }
 
 variable "schema_file" {
@@ -80,5 +80,5 @@ variable "schema_file" {
 variable "data_quality_spec_file" {
   type        = string
   description = "Path to a YAML file containing DataQualityScan related setting. Input content can use either camelCase or snake_case. Variables description are provided in https://cloud.google.com/dataplex/docs/reference/rest/v1/DataQualitySpec."
-  default     = "/rules/orders.dev.yaml"
+  default     = "/rules/epmpins.yaml"
 }

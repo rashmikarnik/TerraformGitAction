@@ -16,24 +16,24 @@
 
 # Set up BigQuery resources
 # # Create the BigQuery dataset
-resource "google_bigquery_dataset" "dataset" {
-  project                    = module.project-services.project_id
-  dataset_id                 = "rashmi_${random_id.id.hex}"
-  friendly_name              = "rashmi table"
-  description                = "rashmi table"
-  location                   = var.region
-  labels                     = var.labels
-  delete_contents_on_destroy = var.force_destroy
-}
+# resource "google_bigquery_dataset" "dataset" {
+#   project                    = module.project-services.project_id
+#   dataset_id                 = "rashmi_${random_id.id.hex}"
+#   friendly_name              = "rashmi table"
+#   description                = "rashmi table"
+#   location                   = var.region
+#   labels                     = var.labels
+#   delete_contents_on_destroy = var.force_destroy
+# }
 
-resource "google_bigquery_table" "table" {
-  project             = module.project-services.project_id
-  deletion_protection = var.deletion_protection
-  dataset_id          = google_bigquery_dataset.dataset.dataset_id
-  table_id            = local.env
+# resource "google_bigquery_table" "table" {
+#   project             = module.project-services.project_id
+#   deletion_protection = var.deletion_protection
+#   dataset_id          = google_bigquery_dataset.dataset.dataset_id
+#   table_id            = local.env
 
-  schema = file("${path.module}/${var.schema_file}")
-}
+#   schema = file("${path.module}/${var.schema_file}")
+# }
 
 resource "google_bigquery_job" "job" {
   project = module.project-services.project_id
