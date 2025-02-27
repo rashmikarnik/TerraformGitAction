@@ -14,10 +14,10 @@
 
 output "bigquery_dataset" {
   description = "The BigQuery dataset to use"
-  value       = google_bigquery_dataset.dataset.dataset_id
+  value       = var.source_dataset
 }
 
 output "bigquery_table" {
   description = "The BigQuery table to use"
-  value       = google_bigquery_table.table.table_id
+  value       = local.bigquery_table_name
 }
