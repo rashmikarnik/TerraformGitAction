@@ -15,6 +15,5 @@
 terraform {
   backend "gcs" {
     bucket = "inlaid-goods-451523-i3-tfstate-rashmi"
-    create_bucket = true
   }
 }
