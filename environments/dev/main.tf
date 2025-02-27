@@ -15,6 +15,7 @@
 module "deploy-dev" {
   source                 = "../../modules/deploy"
   project_id             = "inlaid-goods-451523-i3"
+  bigquery_table_name    = "local.bigquery_table_name"
   data_quality_spec_file = "rules/epmpins.yaml"
   environment            = "dev"
 }
