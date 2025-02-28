@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 resource "google_dataplex_datascan" "dq_scan" {
   location     = var.region
   data_scan_id = "rashmi-scan"
   labels = {
     environment = local.env
   }
-
 
   data {
     resource = "//bigquery.googleapis.com/projects/${var.source_project}/datasets/${var.source_dataset}/tables/${var.source_table}"
@@ -44,20 +44,6 @@ resource "google_dataplex_datascan" "dq_scan" {
         name        = try(rules.value.name, null)
         threshold   = try(rules.value.threshold, null)
 
-        dynamic "custom_condition_expectation" {
-          for_each = try(rules.value.query, null) != null ? [rules.value.query] : []
-          content {
-            sql_expression = rules.value.query
-          }
-        }
-
-      
-        # dynamic "expectation" {
-        #   for_each = try(rules.value.expectation, null) != null ? [rules.value.query] : []
-        #   content {
-        #     sql_expression = rules.value.expectation
-        #   }
-        # }
         dynamic "non_null_expectation" {
           for_each = try(rules.value.non_null_expectation, null) != null ? [""] : []
           content {
@@ -105,21 +91,19 @@ resource "google_dataplex_datascan" "dq_scan" {
           }
         }
 
+        dynamic "row_condition_expectation" {
+          for_each = try(rules.value.row_condition_expectation, null) != null ? [""] : []
+          content {
+            sql_expression = rules.value.row_condition_expectation.sql_expression
+          }
+        }
 
-
-        # dynamic "table_condition_expectation" {
-        #   for_each = try(rules.value.query, null) != null ? [""] : []
-        #   content {
-        #     sql_expression = rules.value.query
-        #   }
-        # }
-
-        # dynamic "row_condition_expectation" {
-        #   for_each = try(rules.value.expectation, null) != null ? [""] : []
-        #   content {
-        #     sql_expression = rules.value.expectation
-        #   }
-        # }
+        dynamic "table_condition_expectation" {
+          for_each = try(rules.value.table_condition_expectation, null) != null ? [""] : []
+          content {
+            sql_expression = rules.value.table_condition_expectation.sql_expression
+          }
+        }
 
       }
     }

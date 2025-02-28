@@ -1,17 +1,14 @@
 samplingPercent: 100
 rowFilter:
 rules:
-    - column: PIN_DESC
-      dimension: UNIQUENESS
-      name: non-null
-      description: PIN_DESC should be unique
-      query: |- 
-        SELECT COUNT(*) AS count,PIN_DESC
-        FROM `${var.source_project}.${var.source_dataset}.${var.source_table}`
-        WHERE LOWER(PIN_DESC) LIKE 'test'
-      expectation: COUNT(*) = 0
-      threshold: 0.0
-      non_null_expectation: {}
+  - column: PIN_DESC
+    dimension: UNIQUENESS
+    name: non-null
+    description: PIN_DESC should be unique
+    #expectation: COUNT(*) = 0
+    threshold: 0.0
+    rowConditionCheckExpectation:
+      sqlExpression: LOWER(PIN_DESC) LIKE 'test'
   # - column: user_id
   #   dimension: COMPLETENESS
   #   name: non-null
