@@ -100,12 +100,12 @@ resource "google_dataplex_datascan" "dq_scan" {
           }
         }
 
-        dynamic "row_condition_expectation" {
-          for_each = try(rules.value.expectation, null) != null ? [""] : []
-          content {
-            sql_expression = rules.value.expectation
-          }
-        }
+        # dynamic "row_condition_expectation" {
+        #   for_each = try(rules.value.expectation, null) != null ? [""] : []
+        #   content {
+        #     sql_expression = rules.value.expectation
+        #   }
+        # }
 
       }
     }
