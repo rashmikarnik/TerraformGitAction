@@ -5,7 +5,8 @@ rules:
       dimension: UNIQUENESS
       name: non-null
       description: PIN_DESC should be unique
-      query: SELECT COUNT(*) AS count,PIN_DESC
+      query: |- 
+        SELECT COUNT(*) AS count,PIN_DESC
         FROM `${var.source_project}.${var.source_dataset}.${var.source_table}`
         WHERE LOWER(PIN_DESC) LIKE 'test'
       expectation: COUNT(*) = 0
