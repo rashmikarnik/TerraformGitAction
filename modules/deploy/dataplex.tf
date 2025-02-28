@@ -44,19 +44,20 @@ resource "google_dataplex_datascan" "dq_scan" {
         name        = try(rules.value.name, null)
         threshold   = try(rules.value.threshold, null)
 
-        dynamic "query" {
+        dynamic "custom_condition_expectation" {
           for_each = try(rules.value.query, null) != null ? [rules.value.query] : []
           content {
             sql_expression = rules.value.query
           }
         }
 
-        dynamic "expectation" {
-          for_each = try(rules.value.expectation, null) != null ? [rules.value.query] : []
-          content {
-            sql_expression = rules.value.expectation
-          }
-        }
+      
+        # dynamic "expectation" {
+        #   for_each = try(rules.value.expectation, null) != null ? [rules.value.query] : []
+        #   content {
+        #     sql_expression = rules.value.expectation
+        #   }
+        # }
         dynamic "non_null_expectation" {
           for_each = try(rules.value.non_null_expectation, null) != null ? [""] : []
           content {
