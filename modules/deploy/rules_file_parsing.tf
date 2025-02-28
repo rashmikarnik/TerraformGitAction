@@ -5,8 +5,6 @@ locals {
       column               = try(rule.column, null)
       ignore_null          = try(rule.ignoreNull, rule.ignore_null, null)
       dimension            = rule.dimension
-      query                = try(rule.query, null)
-      expectation          = try(rule.expectation, null)
       description          = try(rule.description, null)
       name                 = try(rule.name, null)
       threshold            = try(rule.threshold, null)
@@ -31,8 +29,8 @@ locals {
         strict_min_enabled = try(rule.statisticRangeExpectation.strictMinEnabled, rule.statistic_range_expectation.strict_min_enabled, null)
         strict_max_enabled = try(rule.statisticRangeExpectation.strictMaxEnabled, rule.statistic_range_expectation.strict_max_enabled, null)
       } : null
-      row_condition_expectation = can(rule.rowConditionExpectation) || can(rule.row_condition_expectation) ? {
-        sql_expression = try(rule.rowConditionExpectation.sqlExpression, rule.row_condition_expectation.sql_expression, null)
+      row_condition_expectation = can(rule.rowConditionCheckExpectation) || can(rule.row_condition_check_expectation) ? {
+        sql_expression = try(rule.rowConditionCheckExpectation.sqlExpression, rule.row_condition_check_expectation.sql_expression, null)
       } : null
       table_condition_expectation = can(rule.tableConditionExpectation) || can(rule.table_condition_expectation) ? {
         sql_expression = try(rule.tableConditionExpectation.sqlExpression, rule.table_condition_expectation.sql_expression, null)
