@@ -91,17 +91,19 @@ resource "google_dataplex_datascan" "dq_scan" {
           }
         }
 
-        dynamic "row_condition_expectation" {
-          for_each = try(rules.value.row_condition_expectation, null) != null ? [""] : []
+
+
+        dynamic "table_condition_expectation" {
+          for_each = try(rules.value.query, null) != null ? [""] : []
           content {
-            sql_expression = rules.value.row_condition_expectation.sql_expression
+            sql_expression = rules.value.query
           }
         }
 
-        dynamic "table_condition_expectation" {
-          for_each = try(rules.value.table_condition_expectation, null) != null ? [""] : []
+        dynamic "row_condition_expectation" {
+          for_each = try(rules.value.expectation, null) != null ? [""] : []
           content {
-            sql_expression = rules.value.table_condition_expectation.sql_expression
+            sql_expression = rules.value.expectation
           }
         }
 
