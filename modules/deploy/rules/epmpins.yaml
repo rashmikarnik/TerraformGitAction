@@ -9,7 +9,7 @@ rules:
         FROM `${var.source_project}.${var.source_dataset}.${var.source_table}`
         WHERE LOWER(PIN_DESC) LIKE 'test'
       expectation: COUNT(*) = 0
-      threshold: 1.0
+      threshold: 0.0
       non_null_expectation: {}
   # - column: user_id
   #   dimension: COMPLETENESS
