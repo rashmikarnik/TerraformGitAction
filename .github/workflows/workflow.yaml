@@ -63,11 +63,10 @@ jobs:
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          GOOGLE_CLOUD_DEFAULT_AUDIENCE: ${{ secrets.IDENTITY_PROVIDER }}
         run: terraform init -input=false
         working-directory: ./environments/dev
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
