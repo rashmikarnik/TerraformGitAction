@@ -66,6 +66,7 @@ jobs:
         run: terraform init -input=false
         working-directory: ./environments/dev
         env:
+          GOOGLE_CLOUD_DEFAULT_AUDIENCE: ${{ secrets.IDENTITY_PROVIDER }}
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       # Generates an execution plan for Terraform
