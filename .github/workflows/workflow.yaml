@@ -53,9 +53,9 @@ jobs:
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
 
       # Set audience for service account
-      - name: Set audience for service account
-        run: |
-          echo "GOOGLE_CLOUD_DEFAULT_AUDIENCE=${{ secrets.IDENTITY_PROVIDER }}" >> $GITHUB_ENV
+      # - name: Set audience for service account
+      #   run: |
+      #     echo "GOOGLE_CLOUD_DEFAULT_AUDIENCE=${{ secrets.IDENTITY_PROVIDER }}" >> $GITHUB_ENV
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -65,23 +65,23 @@ jobs:
       - name: Terraform Init
         run: terraform init -input=false
         working-directory: ./environments/dev
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        # env:
+        #   PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: terraform plan -input=false
         working-directory: ./environments/dev
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        # env:
+        #   PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
         # On push to main, build or change infrastructure according to Terraform configuration files
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./environments/dev
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        # env:
+        #   PROJECT_ID: ${{ secrets.PROJECT_ID }}
 # name: "Terraform CI"
 
 # on:
