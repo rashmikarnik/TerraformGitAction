@@ -52,6 +52,9 @@ jobs:
           IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
 
+      - name: Set audience for service account
+        run: echo "GOOGLE_CLOUD_DEFAULT_AUDIENCE=https://iamcredentials.googleapis.com" >> $GITHUB_ENV
+
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
