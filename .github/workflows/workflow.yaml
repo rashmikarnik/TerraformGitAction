@@ -47,7 +47,7 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-          # project_id: ${{ secrets.PROJECT_ID }}}}
+          project_id: ${{ secrets.PROJECT_ID }}}}
         env:
           IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
