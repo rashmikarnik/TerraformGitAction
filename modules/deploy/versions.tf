@@ -47,3 +47,8 @@ terraform {
     module_name = "blueprints/terraform/terraform-google-analytics-lakehouse/v0.3.0"
   }
 }
+
+provider "google" {
+  project = "inlaid-goods-451523-i3"
+  region  = "us-central1"
+}

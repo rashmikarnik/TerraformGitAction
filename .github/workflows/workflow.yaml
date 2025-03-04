@@ -52,10 +52,10 @@ jobs:
           IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
 
-      # Set audience for service account
-      # - name: Set audience for service account
-      #   run: |
-      #     echo "GOOGLE_CLOUD_DEFAULT_AUDIENCE=${{ secrets.IDENTITY_PROVIDER }}" >> $GITHUB_ENV
+      # Set GCP Authentication for Terraform
+      - name: Set GCP Authentication for Terraform
+        run: |
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
