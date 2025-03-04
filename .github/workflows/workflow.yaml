@@ -51,6 +51,7 @@ jobs:
         env:
           IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}}}
 
       # Set GCP Authentication for Terraform
       - name: Set GCP Authentication for Terraform
