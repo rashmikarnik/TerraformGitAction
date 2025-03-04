@@ -55,7 +55,7 @@ jobs:
       # Set GCP Authentication for Terraform
       - name: Set GCP Authentication for Terraform
         run: |
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credential.json"" >> $GITHUB_ENV
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credential.json" >> $GITHUB_ENV
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
