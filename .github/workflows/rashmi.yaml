@@ -35,7 +35,7 @@ jobs:
       # Checkout the repository to the GitHub Actions runner - comment
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       # Added debug - needs to remove later
       - name: Debug
         run: |
@@ -47,6 +47,7 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          project_id: ${{ secrets.PROJECT_ID }}}}
         env:
           IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
@@ -60,32 +61,14 @@ jobs:
         run: terraform init -input=false
         working-directory: ./environments/dev
         env:
-          PROJECT_ID: ${{ vars.PROJECT_ID }}
-        # env:
-        #   create_credentials_file: true
-        #   token_format: access_token
-        #   workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
-        #   service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-        #   project_id: ${{ vars.PROJECT_ID }}
-
-        # env:
-        #   GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: terraform plan -input=false
         working-directory: ./environments/dev
         env:
-          PROJECT_ID: ${{ vars.PROJECT_ID }}
-        # env:
-        #   create_credentials_file: true
-        #   token_format: access_token
-        #   workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
-        #   service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-        #   project_id: ${{ vars.PROJECT_ID }}
-
-        # env:
-        #   GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
         # On push to main, build or change infrastructure according to Terraform configuration files
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
@@ -93,13 +76,4 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: ./environments/dev
         env:
-          PROJECT_ID: ${{ vars.PROJECT_ID }}
-        # env:
-        #   create_credentials_file: true
-        #   token_format: access_token
-        #   workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
-        #   service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-        #   project_id: ${{ vars.PROJECT_ID }}
-
-        # env:
-        #   GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
