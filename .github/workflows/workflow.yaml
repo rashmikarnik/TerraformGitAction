@@ -25,6 +25,9 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
+    env:
+      IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
+      SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -48,10 +51,10 @@ jobs:
           workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           project_id: ${{ secrets.PROJECT_ID }}}}
-        env:
-          IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
-          SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}}}
+        # env:
+        #   IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
+        #   SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+        #   PROJECT_ID: ${{ secrets.PROJECT_ID }}}}
 
       # Set GCP Authentication for Terraform
       - name: Set GCP Authentication for Terraform
