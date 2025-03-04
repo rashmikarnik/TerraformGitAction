@@ -25,6 +25,19 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+            workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
+            service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+        env:
+          IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
+          SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+
+
+        
+
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init -input=false

@@ -1,0 +1,76 @@
+name: Build and deploy data pipeline files to Cloud Composer
+ 
+on:
+  push:
+    branches: [ main, Development ]  
+    paths:
+      - 'data/**'  
+      - '.github/workflows/data-deploy.yml'
+  release:
+    types:
+      - published
+ 
+permissions:
+  id-token: write
+  contents: read   
+ 
+jobs:
+  set_environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up DEV Environment Variables
+        if: ${{ github.event_name == 'push' }}
+        run: echo "environment=DEV" >> $GITHUB_ENV
+    outputs:
+      environment_name: ${{ env.environment }}
+ 
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+ 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+ 
+  sync:
+    needs: 
+      - set_environment
+      - deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ needs.set_environment.outputs.environment_name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      - name: Download jar artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: ./data/jars
+          merge-multiple: true
+ 
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          create_credentials_file: true
+          token_format: access_token
+          workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          project_id: ${{ vars.PROJECT_ID }}
+ 
+      - name: Set up GCP environment
+        uses: google-github-actions/setup-gcloud@v2
+ 
+      - run: ls -R
+ 
+      - name: Sync files in data folder with Composer bucket
+        run: |
+          gcloud storage rsync ./data ${{ vars.COMPOSER_DAG_FOLDER }} --recursive --delete-unmatched-destination-objects --exclude "airflow_monitoring\.py"
