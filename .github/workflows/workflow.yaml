@@ -51,6 +51,8 @@ jobs:
         env:
           IDENTITY_PROVIDER: ${{ secrets.IDENTITY_PROVIDER }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+        run:
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credential.json" >> $GITHUB_ENV
 
       # Set GCP Authentication for Terraform
       - name: Set GCP Authentication for Terraform
