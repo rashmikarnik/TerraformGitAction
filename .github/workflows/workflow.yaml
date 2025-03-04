@@ -5,7 +5,7 @@ on:
     branches:
       - dev
     paths:
-      - ".github/workflows/rashmi.yaml"
+      - ".github/workflows/workflow.yaml"
   pull_request:
 
 permissions:
